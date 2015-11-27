@@ -15,7 +15,7 @@ Modern Editor is a code editor for Windows 10 (Universal App Platform), built on
 #### Instructions
 ```bash
 npm install -g gulp // Install gulp complier
-git clone https://github.com/quanglam2807/modern-editor.git
+git clone https://github.com/modern-editor/modern-editor.git
 cd modern-editor
 npm install
 npm prepare //To copy winjs and ace-builds to necessary location
@@ -27,4 +27,4 @@ Open `ModernEditor.sln` with **Visual Studio**. Go to **Debug > Start without De
 [Modern Lab Localization Center](http://localization.modernlab.xyz)
 
 ## License
-[GPL](https://github.com/quanglam2807/modern-editor/blob/master/LICENSE)
+[GPL](https://github.com/modern-editor/modern-editor/blob/master/LICENSE)

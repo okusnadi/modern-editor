@@ -1,0 +1,57 @@
+{
+  "name": "modern-editor",
+  "version": "1.0.0",
+  "description": "Modern Editor is a code editor for Windows 10 (Universal App Platform), built on ReactJS, WinJS and Ace",
+  "main": "gulpfile.babel.js",
+  "dependencies": {
+    "ace-builds": "^1.2.2",
+    "alt": "^0.17.9",
+    "babel": "^5.8.34",
+    "babel-core": "^5.8.34",
+    "babel-loader": "^5.4.0",
+    "gulp": "^3.9.0",
+    "gulp-bom": "^1.0.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-stylus": "^2.1.0",
+    "history": "^1.13.1",
+    "immutable": "^3.7.5",
+    "keyboardjs": "^2.2.0",
+    "mkdirp": "^0.5.1",
+    "onesky-utils": "^0.0.2",
+    "pouchdb": "^4.0.3",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-mixin": "^3.0.3",
+    "react-winjs": "^2.4.0",
+    "webpack": "^1.12.6",
+    "webpack-stream": "^2.1.1",
+    "winjs": "^4.4.0",
+    "winjs-localization": "^4.4.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.34",
+    "babel-core": "^5.8.34",
+    "babel-loader": "^5.4.0",
+    "gulp": "^3.9.0",
+    "gulp-bom": "^1.0.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-stylus": "^2.1.0",
+    "webpack": "^1.12.9",
+    "webpack-stream": "^2.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/modern-editor/modern-editor.git"
+  },
+  "author": "Quang Lam (Modern Lab)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/modern-editor/modern-editor/issues"
+  },
+  "homepage": "https://github.com/modern-editor/modern-editor#readme"
+}
