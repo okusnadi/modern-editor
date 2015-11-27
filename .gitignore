@@ -214,3 +214,7 @@ ModelManifest.xml
 ace/
 winjs/
 www/
+
+*.appx
+_pkginfo.txt
+BundleArtifacts/

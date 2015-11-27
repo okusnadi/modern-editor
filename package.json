@@ -1,6 +1,6 @@
 {
   "name": "modern-editor",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Modern Editor is a code editor for Windows 10 (Universal App Platform), built on ReactJS, WinJS and Ace",
   "main": "gulpfile.babel.js",
   "dependencies": {
@@ -39,7 +39,8 @@
     "webpack-stream": "^2.2.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "gulp prepare"
   },
   "repository": {
     "type": "git",

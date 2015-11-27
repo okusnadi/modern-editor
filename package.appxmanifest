@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="5c8f272a-212b-4779-8fa9-ee06a87966e9" Version="1.0.0.0" Publisher="CN=quanglam2807" />
+  <Identity Name="55974nhutquang97.ModernEditor" Version="0.1.0.0" Publisher="CN=C635F506-DEEB-41A4-8CAA-16689F486ED2" />
   <mp:PhoneIdentity PhoneProductId="5c8f272a-212b-4779-8fa9-ee06a87966e9" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>ModernEditor</DisplayName>
-    <PublisherDisplayName>quanglam2807</PublisherDisplayName>
+    <DisplayName>Modern Editor</DisplayName>
+    <PublisherDisplayName>Modern Lab</PublisherDisplayName>
     <Logo>images\Store.png</Logo>
   </Properties>
   <Dependencies>

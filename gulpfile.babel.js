@@ -9,11 +9,13 @@ import path from "path"
 
 gulp.task("copy-winjs", () => {
   return gulp.src(["node_modules/winjs/**/*"])
+    .pipe(bom())
     .pipe(gulp.dest("./winjs/"))
 })
 
 gulp.task("copy-ace", () => {
   return gulp.src(["node_modules/ace-builds/src-min-noconflict/**/*"])
+    .pipe(bom())
     .pipe(gulp.dest("./ace/"))
 })
 
@@ -53,20 +55,15 @@ gulp.task("webpack", () => {
         root: path.resolve("src")
       },
       plugins: [
-       /*new webpack.optimize.UglifyJsPlugin({
+       new webpack.optimize.UglifyJsPlugin({
           sourceMap: false,
           mangle: false
-        })*/
+        })
       ]
     }))
     .pipe(bom())
     .pipe(gulp.dest("www/"))
 })
 
-gulp.task("add-bom", () => {
-  return gulp.src("sql.jsx")
-    .pipe(bom())
-    .pipe(gulp.dest("sql.js"))
-})
-
+gulp.task("prepare", ["copy-winjs", "copy-ace"])
 gulp.task("default", ["jade", "stylus", "webpack"])
