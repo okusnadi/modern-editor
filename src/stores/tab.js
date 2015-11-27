@@ -1,4 +1,3 @@
-import PouchDB from "pouchdb"
 import alt from "flalt.js"
 import TabActions from "actions/tab.js"
 import Immutable from "immutable"
