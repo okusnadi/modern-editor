@@ -25,15 +25,6 @@
         </uap:DefaultTile>
         <uap:SplashScreen Image="images\Splash620x300.png" BackgroundColor="#2196f3" />
       </uap:VisualElements>
-      <Extensions>
-        <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="textfile">
-            <uap:SupportedFileTypes>
-              <uap:FileType ContentType="image/jpeg">.jpg</uap:FileType>
-            </uap:SupportedFileTypes>
-          </uap:FileTypeAssociation>
-        </uap:Extension>
-      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

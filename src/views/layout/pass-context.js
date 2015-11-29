@@ -7,6 +7,8 @@ class PassContext extends React.Component {
   }
 
   static childContextTypes = {
+    history: React.PropTypes.object,
+    location: React.PropTypes.object,
     settings: React.PropTypes.object,
     getString: React.PropTypes.func,
     mode: React.PropTypes.string

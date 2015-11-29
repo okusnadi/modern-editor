@@ -20,8 +20,9 @@ class AboutPage extends React.Component {
         </div>
         <div className="app-info">
           <h4 className="win-h4" style={{ marginTop: 18 }}>{this.context.getString("app-name")}</h4>
-          <h5 className="win-h5">0.1.0.0</h5>
+          <h5 className="win-h5">0.2.0.0</h5>
           <h5 className="win-h5">Modern Lab</h5>
+          <h5 className="win-h5">GPL-2.0</h5>
           <button
             className="win-button"
             onClick={this.openURI.bind(this, "https://github.com/modern-editor/modern-editor")}>
@@ -34,7 +35,7 @@ class AboutPage extends React.Component {
           </button>
           <button
             className="win-button"
-            onClick={this.openURI.bind(this, "https://moderntranslate.com/r/changelog")}>
+            onClick={this.openURI.bind(this, "https://github.com/modern-editor/modern-editor/releases")}>
             {this.context.getString("changelog")}
           </button>
           <h5 className="win-h5">made with ♥ in Vietnam & the Netherlands</h5>
@@ -48,14 +49,14 @@ class AboutPage extends React.Component {
           </h6>
           <button
             className="win-button"
-            onClick={this.openURI.bind(this, "mailto:support@moderntranslate.com")}>
+            onClick={this.openURI.bind(this, "mailto:support@modernlab.xyz")}>
             {this.context.getString("email-us")}
           </button>
           <button
             className="win-button"
-            style={{ backgroundColor: "#55acee", color: "#fff" }}
-            onClick={this.openURI.bind(this, "https://twitter.com/moderntranslate")}>
-            {this.context.getString("follow-us")}
+            style={{ backgroundColor: "#333333", color: "#fff" }}
+            onClick={this.openURI.bind(this, "https://github.com/modern-editor/modern-editor/issues")}>
+            {this.context.getString("create-an-issue-on-github")}
           </button>
         </div>
         <div className="app-feedback" style={{ marginBottom: 12 }}>
@@ -65,7 +66,7 @@ class AboutPage extends React.Component {
           <button
             className="win-button"
             style={{ backgroundColor: this.context.settings.primaryColor.light, color: "#fff", marginTop: 6 }}
-            onClick={this.openURI.bind(this, "ms-windows-store://review/?ProductId=9wzdncrcsg9k")}>
+            onClick={this.openURI.bind(this, "ms-windows-store://review/?ProductId=9nblggh6hbmg")}>
             {this.context.getString("give-us-5-star")}
           </button>
         </div>
@@ -79,23 +80,21 @@ class AboutPage extends React.Component {
     return (
       <div>
         <h5 className="win-h5">{this.context.getString("special-thanks-msg")}</h5>
-        <ul className="contributor-list">
-          {contributors.map(contributor => {
-            if (contributor.website) {
-              return (
-                <li
-                  className="win-link"
-                  onClick={this.openURI.bind(this, contributor.website)}>
-                  {contributor.name}
-                </li>
-              )
-            }
-            return (<li>{contributor.name}</li>)
-          })}
-        </ul>
+        <button
+          className="win-button"
+          onClick={this.openURI.bind(this, "https://github.com/modern-editor/modern-editor/wiki/Translators")}>
+          {this.context.getString("translators")}
+        </button>
+        <button
+          className="win-button"
+          onClick={this.openURI.bind(this, "https://github.com/modern-editor/modern-editor/graphs/contributors")}>
+          {this.context.getString("developers")}
+        </button>
 
-        <h5 className="win-h5">{this.context.getString("want-to-help-us")}</h5>
+        <h5 className="win-h5" style={{ marginTop: 16 }}>{this.context.getString("want-to-help-us")}</h5>
         <h4 className="win-h4 win-link" onClick={this.openURI.bind(this, "http://localization.modernlab.xyz")}>localization.modernlab.xyz</h4>
+        <h4 className="win-h4">---</h4>
+        <h4 className="win-h4 win-link" onClick={this.openURI.bind(this, "http://github.com/modern-editor/modern-editor")}>github.com/modern-editor/modern-editor</h4>
       </div>
     )
   }

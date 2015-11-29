@@ -20,10 +20,9 @@ class AceWrapper extends React.Component {
 
   static defaultProps = {
     mode: "text",
-    theme: null,
+    theme: "monokai",
     height: "500px",
     width: "500px",
-    fontSize: 15,
     value: "",
     onChange: null,
     onCopy: null,
@@ -38,16 +37,9 @@ class AceWrapper extends React.Component {
   componentDidMount() {
     let el = ReactDOM.findDOMNode(this)
     this.editor = ace.edit(el)
-    if (this.props.theme) {
-      this.editor.setTheme("ace/theme/" + this.props.theme)
-    }
-    this.editor.session.setValue(this.props.initialValue, this.props.cursorStart)
-    if (this.props.mode) {
-      this.editor.session.setMode("ace/mode/" + this.props.mode)
-    }
-    if (this.props.fontSize) {
-      this.editor.setFontSize(this.props.fontSize)
-    }
+    this.editor.setTheme(`ace/theme/${this.props.theme}`)
+    this.editor.session.setValue(this.props.value, this.props.cursorStart)
+    this.editor.session.setMode(`ace/mode/${this.props.mode}`)
 
     Object.keys(this.props.editorProps).forEach(propKey => {
       this.editor[propKey] = this.props.editorProps[propKey]
@@ -55,7 +47,7 @@ class AceWrapper extends React.Component {
 
     this.editor.setOptions(this.props.options)
 
-    //this.editor.commands.removeCommand("showSettingsMenu")
+    this.editor.commands.removeCommand("showSettingsMenu")
 
     this.editor.on("focus", () => {
       if (this.props.onFocus) {
@@ -86,28 +78,23 @@ class AceWrapper extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.theme != nextProps.theme) {
-      this.editor.setTheme("ace/theme/" + nextProps.theme)
-    }
     if (this.props.mode != nextProps.value) {
-      this.editor.session.setMode("ace/mode/" + nextProps.mode)
+      this.editor.session.setMode(`ace/mode/${nextProps.mode}`)
     }
-    if (this.props.fontSize != nextProps.fontSize) {
-      this.editor.setFontSize(nextProps.fontSize)
+    if (this.props.options.fontSize != nextProps.options.fontSize) {
+      this.editor.setFontSize(nextProps.options.fontSize)
     }
-
-    if (JSON.stringify(this.props.options) != JSON.stringify(nextProps.options)) {
-      this.editor.setOption(nextProps.options)
+    if (this.editor.getValue() !== nextProps.value) {
+      // editor.setValue is a synchronous function call, change event is emitted before setValue return.
+      this.silent = true
+      this.editor.setValue(nextProps.value, nextProps.cursorStart)
+      this.silent = false
     }
     return false
   }
 
   render() {
-    let style = { position: "relative" }
-    if (this.props.height) style.height = this.props.height
-    if (this.props.width) style.width = this.props.width
-
-    return <div style={style} />
+    return <div style={this.props.style} />
   }
 }
 

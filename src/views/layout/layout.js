@@ -8,27 +8,25 @@ import SettingActions from "actions/setting.js"
 import TabStore from "stores/tab.js"
 import TabActions from "actions/tab.js"
 
-import FilePage from "views/file-page.js"
-import SettingsPage from "views/settings-page.js"
-import AboutPage from "views/about-page.js"
-
 import PassContext from "./pass-context.js"
+import TabList from "./tab-list.js"
 
 class Layout extends React.Component {
   static childContextTypes = {
+    history: React.PropTypes.object,
+    location: React.PropTypes.object,
     settings: React.PropTypes.object,
     getString: React.PropTypes.func,
     mode: React.PropTypes.string
   }
 
   static getStores() {
-    return [SettingStore, TabStore]
+    return [SettingStore]
   }
 
   static getPropsFromStores() {
     return {
-      settings: SettingStore.getState(),
-      tabs: TabStore.getState()
+      settings: SettingStore.getState()
     }
   }
 
@@ -47,6 +45,8 @@ class Layout extends React.Component {
 
   getChildContext() {
     return {
+      history: this.props.history,
+      location: this.props.location,
       settings: this.props.settings,
       getString: this.getString,
       mode: this.state.mode
@@ -159,7 +159,7 @@ class Layout extends React.Component {
     keyboardJS.on("ctrl + o", this.handleOpenButtonClick.bind(this))
     keyboardJS.on("ctrl + n", this.handleNewButtonClick.bind(this))
     keyboardJS.on("ctrl + w", () => {
-      this.handleTabCloseButtonClick(this.props.tabs.get("currentTab"))
+      TabActions.closeTab({ id: TabStore.getState().get("currentTab") })
     })
   }
 
@@ -178,20 +178,13 @@ class Layout extends React.Component {
     window.removeEventListener("resize", this.handleResize)
   }
 
-  handleTabClick(id) {
-    TabActions.changeCurrent({ id })
-  }
-
-  handleTabCloseButtonClick(id) {
-    TabActions.closeTab({ id })
-  }
-
   handleNewButtonClick() {
     let tab = {
       type: "new",
       name: "untitled"
     }
     TabActions.addTab({ tab })
+    this.props.history.replaceState(null, "/", {})
   }
 
   handleOpenButtonClick() {
@@ -209,16 +202,17 @@ class Layout extends React.Component {
            file
          }
          TabActions.addTab({ tab })
+         this.props.history.replaceState(null, "/", {})
       }
      })
   }
 
   handleSettingsButtonClick() {
-    TabActions.changeCurrent({ id: "settings" })
+    this.props.history.replaceState(null, "/settings", {})
   }
 
   handleAboutButtonClick() {
-    TabActions.changeCurrent({ id: "about" })
+    this.props.history.replaceState(null, "/about", {})
   }
 
   handleTogglePaneInvoked() {
@@ -229,61 +223,18 @@ class Layout extends React.Component {
     this.setState({ paneOpened: false })
   }
 
-  renderTabContent() {
-    let current = this.props.tabs.get("currentTab")
-    if (current == "settings")
-      return <SettingsPage/>
-    if (current == "about")
-      return <AboutPage />
-    let tab = this.props.tabs.getIn(["list", current])
-
-    return <FilePage tab={tab} key={current} id={current}/>
-  }
-
-  handleTogglePaneInvoked() {
-    this.setState({ paneOpened: !this.state.paneOpened })
-  }
-
-  handlePaneAfterClose() {
-    this.state.paneOpened = false
-  }
-
   handleKeyboardShortcutButtonClick() {
     let uri = new Windows.Foundation.Uri("https://gist.github.com/quanglam2807/adf61256af012944261b")
     return Windows.System.Launcher.launchUriAsync(uri)
   }
 
   render() {
-    let currentTab = this.props.tabs.get("currentTab")
     let paneComponent = (
       <div className="app-leftnav">
         <div className="win-h4 app-leftnav-header">
           {this.getString("app-name")}
         </div>
-        <div className="app-tab-container">
-          {this.props.tabs.get("list").map((tab, i) => {
-            return (
-              <div
-                className="win-splitviewcommand-button app-tab"
-                key={i}
-                style={(i == currentTab) ? { backgroundColor: this.props.settings.primaryColor.light, color: "#fff"} : null}>
-                <div className="win-splitviewcommand-button-content app-tab-content" onClick={this.handleTabClick.bind(this, i)}>
-                  <div
-                    className="win-splitviewcommand-icon"
-                    style={(tab.get("notSave") == true) ? { color: "#B71C1C" } : null}>
-                    
-                  </div>
-                  <div className="win-splitviewcommand-label">{tab.get("name")}</div>
-                </div>
-                <div
-                  className="win-splitviewcommand-icon app-tab-close-button"
-                  onClick={this.handleTabCloseButtonClick.bind(this, i)}>
-                  
-                </div>
-              </div>
-            )
-          })}
-        </div>
+        <PassContext context={this.getChildContext()}><TabList/></PassContext>
         <ReactWinJS.ToolBar className="app-toolbar">
           <ReactWinJS.ToolBar.Button
             key="newFile"
@@ -325,7 +276,7 @@ class Layout extends React.Component {
         <ReactWinJS.SplitView
           id="rootSplitView"
           paneComponent={paneComponent}
-          contentComponent={<PassContext context={this.getChildContext()}>{this.renderTabContent()}</PassContext>}
+          contentComponent={<PassContext context={this.getChildContext()}>{this.props.children}</PassContext>}
           paneOpened={this.state.paneOpened}
           {...this.getSplitViewConfig()} />
        </div>

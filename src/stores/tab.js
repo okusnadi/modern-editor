@@ -36,7 +36,7 @@ class TabStore {
     if (tab.type == "file") {
       const modelist = ace.require("ace/ext/modelist")
       let { file } = tab
-      let syntaxMode = modelist.getModeForPath(file.path).name
+      let syntaxMode = modelist.getModeForPath(file.path)
       Windows.Storage.FileIO.readTextAsync(file)
         .then(
           text => {
@@ -48,7 +48,7 @@ class TabStore {
         )
         .then(text => {
           tab.text = text
-          tab.syntaxMode = syntaxMode
+          tab.syntaxMode = Immutable.Map(syntaxMode)
           tab.fileToken = Windows.Storage.AccessCache.StorageApplicationPermissions.futureAccessList.add(file)
           delete tab.file
           let list = this.state.get("list").push(Immutable.Map(tab))
@@ -137,26 +137,26 @@ class TabStore {
           this.setState(this.state.setIn(["list", id, "notSave"], false))
           return true
         })
-        .then(null, (err) => {
-          console.log(err)
-        })
+        .then(null, (err) => {})
     }
     return this.saveAsFile({ id })
   }
 
   saveAsFile({ id }) {
-    let savePicker = new Windows.Storage.Pickers.FileSavePicker()
-    savePicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.documentsLibrary
-    const modelist = ace.require("ace/ext/modelist")
-    modelist.modes.forEach(mode => {
-      let exts = mode.extensions
-                  .split("|")
-                  .map(ext => "." + ext.replace("^", "").replace(".", ""))
-      savePicker.fileTypeChoices.insert(mode.caption, exts)
-    })
-    savePicker.suggestedFileName = "New Document"
-    savePicker.defaultFileExtension = ".txt"
-    return savePicker.pickSaveFileAsync()
+    if (!this.savePicker) {
+      this.savePicker = new Windows.Storage.Pickers.FileSavePicker()
+      this.savePicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.documentsLibrary
+      const modelist = ace.require("ace/ext/modelist")
+      modelist.modes.forEach(mode => {
+        let exts = mode.extensions
+                    .split("|")
+                    .map(ext => "." + ext.replace("^", "").replace(".", ""))
+        this.savePicker.fileTypeChoices.insert(mode.caption, exts)
+      })
+      this.savePicker.suggestedFileName = "New Document"
+      this.savePicker.defaultFileExtension = ".txt"
+    }
+    return this.savePicker.pickSaveFileAsync()
       .then(file => {
         if (file) {
           let tab = this.state.getIn(["list", id])

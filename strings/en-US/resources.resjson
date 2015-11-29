@@ -20,7 +20,7 @@
 	"love-our-app": "Love our app?",
 	"give-us-5-star": "Give us 5-star rating",
 	"email-us": "Email us",
-	"follow-us": "Follow us on Twitter",
+	"create-an-issue-on-github": "Create an issue on GitHub",
 	"oops": "Oops",
 	"connect-problem": "There was a problem connecting to the server.",
 	"check-connect": "Check your Wi-Fi or mobile data connection.",
@@ -77,5 +77,18 @@
 	"show-invisibles": "Show invisibles",
 	"show-line-numbers": "Show line numbers",
 	"show-print-margin": "Show print margin",
-	"tooltip-follows-mouse": "Tooltip follows mouse"
+	"tooltip-follows-mouse": "Tooltip follows mouse",
+	"line": "Line",
+	"text": "Text",
+	"ace": "Ace",
+	"slim": "Slim",
+	"smooth": "Smooth",
+	"wide": "Wide",
+	"translators": "Translators",
+	"developers": "Developers",
+	"length": "Length",
+	"print": "Print",
+	"share-as-text": "Share as text",
+	"share-as-file": "Share as file",
+	"save-file-first": "You need to save the file first."
 }

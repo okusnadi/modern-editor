@@ -3,10 +3,10 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import Alt from "flalt.js"
-import App from "views/layout/layout.js"
+import AppRoutes from "routes.js"
 
 WinJS.Application.onactivated = args => {
-  ReactDOM.render(<App/>, document.getElementById("app"))
+  ReactDOM.render(AppRoutes, document.getElementById("app"))
 }
 
 WinJS.Application.oncheckpoint = () => {

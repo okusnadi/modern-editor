@@ -26,7 +26,7 @@ const settingsConfig = {
     firstLineNumber: 1,
     fixedWidthGutter: false,
     focusTimout: 0,
-    fontFamily: "Segoe UI",
+    fontFamily: "Courier New",
     fontSize: 15,
     highlightActiveLine: true,
     highlightGutterLine: true,
@@ -44,7 +44,7 @@ const settingsConfig = {
     showGutter: true,
     showInvisibles: false,
     showLineNumbers: true,
-    showPrintMargin: true,
+    showPrintMargin: false,
     tooltipFollowsMouse: true
   }
 }

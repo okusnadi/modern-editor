@@ -5,8 +5,7 @@ import SettingActions from "actions/setting.js"
 export default class SettingsPage extends React.Component {
   static contextTypes = {
     getString: React.PropTypes.func,
-    settings: React.PropTypes.object,
-    history: React.PropTypes.object
+    settings: React.PropTypes.object
   }
 
   constructor() {
@@ -41,7 +40,7 @@ export default class SettingsPage extends React.Component {
       firstLineNumber: 1,
       fixedWidthGutter: false,
       focusTimout: 0,
-      fontFamily: ["Segoe UI"],
+      fontFamily: ["Courier New"],
       fontSize: 15,
       highlightActiveLine: true,
       highlightGutterLine: true,
@@ -190,7 +189,7 @@ export default class SettingsPage extends React.Component {
     SettingActions.setValue({ name, value: e.currentTarget.winControl.checked })
   }
 
-  handleAceOptionsToggleChange(name, e) {
+  handleAceOptionToggleChange(name, e) {
     SettingActions.setAceOptionsValue({ name, value: e.currentTarget.winControl.checked })
   }
 
@@ -212,6 +211,24 @@ export default class SettingsPage extends React.Component {
     SettingActions.setValue({ name, value: e.target.value })
   }
 
+  handleAceOptionDropdownChange(name, e) {
+    SettingActions.setValue({ name, value: e.target.value })
+  }
+
+
+  handleAceOptionInputChange(name, type, e) {
+    let val = e.target.value
+    if (type == "number") {
+      if (val.length < 1) {
+        return
+      }
+      else {
+        val = parseInt(val)
+      }
+    }
+    SettingActions.setAceOptionsValue({ name, value: val })
+  }
+
   handleDisplayLanguageDropdownChange(e) {
     Windows.Globalization.ApplicationLanguages.primaryLanguageOverride = e.target.value
     SettingActions.setValue({ name: "displayLanguage", value: e.target.value })
@@ -223,19 +240,41 @@ export default class SettingsPage extends React.Component {
       <div>
         {Object.keys(aceOptions).map((key, i) => {
           let stringKey = key.replace(/([A-Z])/g, "-$1").toLowerCase()
-          if (typeof aceOptions[key] == "boolean") {
-            return (
-              <div>
-                <h5 className="win-h5" style={(i > 0) ? { marginTop: 6 } : null}>
-                  {this.context.getString(stringKey)}
-                </h5>
-                <ReactWinJS.ToggleSwitch
-                  checked={this.context.settings.aceOptions[key]}
-                  onChange={this.handleAceOptionsToggleChange.bind(this, key)}/>
-              </div>
-            )
-          }
-          return null
+          return (
+            <div>
+              <h5 className="win-h5" style={(i > 0) ? { marginTop: 6 } : null}>
+                {this.context.getString(stringKey)}
+              </h5>
+              {(() => {
+                if (Array.isArray(aceOptions[key])) {
+                  return (
+                    <select
+                      className="win-dropdown"
+                      value={this.context.settings.aceOptions[key]}
+                      onChange={this.handleAceOptionDropdownChange.bind(this, key)}>
+                      {aceOptions[key].map(option => {
+                        return <option value={option} key={option}>{this.context.getString(option)}</option>
+                      })}
+                    </select>
+                  )
+                }
+                if (typeof aceOptions[key] == "boolean") {
+                  return (
+                    <ReactWinJS.ToggleSwitch
+                      checked={this.context.settings.aceOptions[key]}
+                      onChange={this.handleAceOptionToggleChange.bind(this, key)}/>
+                  )
+                }
+                return (
+                  <input
+                    type={typeof aceOptions[key]}
+                    onChange={this.handleAceOptionInputChange.bind(this, key, (typeof aceOptions[key]))}
+                    value={this.context.settings.aceOptions[key]}
+                    className="win-textbox"/>
+                )
+              })()}
+            </div>
+          )
         })}
       </div>
     )
@@ -310,7 +349,7 @@ export default class SettingsPage extends React.Component {
               if (!theme.isDark) return null
               return (
                 <option value={theme.name} key={theme.name}>
-                  {theme.caption})
+                  {theme.caption}
                 </option>
               )
             })}
