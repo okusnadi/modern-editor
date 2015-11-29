@@ -5,10 +5,11 @@ Modern Editor is a code editor for Windows 10 (Universal App Platform), built on
 
 ## Installation
 [Via Windows Store](https://www.microsoft.com/store/apps/9nblggh6hbmg)
+
 [Manual](https://github.com/modern-editor/modern-editor/releases)
 
 ## Screenshot
-![Imgur](http://i.imgur.com/l7fJ4Vt.png)
+![Imgur](http://i.imgur.com/d1T1gWx.png)
 
 ## Building
 #### Requirements
