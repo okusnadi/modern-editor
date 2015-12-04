@@ -22,7 +22,7 @@
     "react-dom": "^0.14.3",
     "react-mixin": "^3.0.3",
     "react-router": "^1.0.0",
-    "react-winjs": "^2.4.0",
+    "react-winjs": "staxmanade/react-winjs",
     "webpack": "^1.12.6",
     "webpack-stream": "^2.1.1",
     "winjs": "^4.4.0",
