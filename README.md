@@ -1,4 +1,4 @@
-# Modern Editor
+# Modern Editor (deprecated)
 Modern Editor is a code editor for Windows 10 (Universal App Platform), built on ReactJS, WinJS and Ace.
 
 *The project is still in its early stages*
